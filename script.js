@@ -1,26 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
     const flipperLinks = document.querySelectorAll('.flipper');
-  
+    const popup = document.getElementById('popup');
+    const popupImg = document.getElementById('popup-img');
+    const popupCaption = document.getElementById('popup-caption');
+    const closeBtn = document.querySelector('.popup-close');
+
     flipperLinks.forEach(function(flipperLink) {
-        const popup = flipperLink.nextElementSibling;
-        const closeBtn = popup.querySelector('.popup-close');
-  
         flipperLink.addEventListener('click', function(e) {
             e.preventDefault();
+            const imgSrc = flipperLink.getAttribute('data-img');
+            const captionText = flipperLink.getAttribute('data-caption');
+            popupImg.src = imgSrc;
+            popupCaption.textContent = captionText;
             popup.style.display = 'block';
-        });
-  
-        closeBtn.addEventListener('click', function() {
-            popup.style.display = 'none';
         });
     });
 
+    closeBtn.addEventListener('click', function() {
+        popup.style.display = 'none';
+    });
+
     window.addEventListener('click', function(event) {
-        const popups = document.querySelectorAll('.popup');
-        popups.forEach(function(popup) {
-            if (event.target == popup) {
-                popup.style.display = 'none';
-            }
-        });
+        if (event.target == popup) {
+            popup.style.display = 'none';
+        }
     });
 });
